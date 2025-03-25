@@ -1,0 +1,57 @@
+Cílem této prezentace je ukázat, jak efektivní a udržitelný softwarový návrh přispívá k lepší čitelnosti kódu, stabilní architektuře a snadnější údržbě softwarových systémů.
+
+Design patterns, tedy návrhové vzory, nejsou jen abstraktní koncepty, ale konkrétní nástroje, které najdou uplatnění v širokém spektru projektů – od velkých systémů jako je Netflix, přes ASP.NET Core až po naše vlastní projekty. Tyto vzory nám umožňují řešit běžné problémy, se kterými se setkáváme při vývoji, a to již od samotného návrhu softwaru.
+
+Začneme krátkým shrnutím hlavních cílů, které by nám design patterns měly pomoci naplnit:
+– Vytvořit kód, který je srozumitelný a přehledný, skoro jako dobře napsaná kniha.
+– Navrhnout architekturu, která vydrží dlouhá léta a odolá změnám požadavků.
+– Usnadnit údržbu a rozvoj systému, aby bylo možné rychle reagovat na nové výzvy.
+
+Nyní se podíváme na základní rozdělení návrhových vzorů, které lze shrnout do tří pilířů. 
+Tyto pilíře představují různé aspekty návrhu a každý z nich se zaměřuje na odlišné problémy a jejich řešení.
+
+1. Creational – Tvorba objektů
+Do této skupiny patří vzory, které se zabývají tvorbou objektů. Mezi nejznámější patří:
+
+    Singleton: Tento vzor zaručuje, že z dané třídy existuje pouze jedna instance. Používá se například pro implementaci globálního logeru nebo cache, kde je třeba zajistit jednotný přístup z různých částí aplikace. Při implementaci je třeba věnovat zvláštní pozornost vlákno-safety, aby se předešlo problémům v paralelním prostředí.
+
+    Factory Method: Tento vzor umožňuje dynamickou tvorbu objektů na základě určitých parametrů nebo podmínek. Je vhodný, když je třeba vytvořit objekty, jejichž konkrétní typ se určuje až během běhu aplikace. Příkladem je metoda .Parse(), která podle vstupu vytvoří příslušný objekt.
+
+    Builder: Vzor Builder se využívá pro konstrukci složitějších objektů krok za krokem. Jeho využití se často objevuje v případech, kdy je objekt konfigurovatelný pomocí řady volitelných parametrů. Známým příkladem v jazyce C# je třída StringBuilder, která umožňuje efektivní manipulaci s textem.
+
+2. Structural – Uspořádání tříd
+Structural vzory se soustředí na to, jak efektivně kombinovat a navzájem propojit různé třídy a objekty tak, aby vznikla koherentní struktura. Patří sem:
+
+    Decorator: Tento vzor umožňuje dynamické rozšíření funkcionality objektů bez nutnosti měnit jejich strukturu. Například při práci se streamy můžeme pomocí dekorátoru obalit základní stream třídou, která přidá další funkce, jako je buffering, aniž bychom museli modifikovat původní třídu.
+
+    Adapter: Adapter funguje jako most mezi dvěma neslučitelnými systémy či třídami. Umožňuje, aby objekty spolu komunikovaly, i když jejich rozhraní nejsou přímo kompatibilní. Typickým příkladem je adaptace starších komponent (například COM) pro využití v moderním .NET prostředí.
+
+    Facade: Facade vzor poskytuje jednoduché rozhraní pro složitý subsystém. Díky němu lze skrýt interní složitost systému a nabídnout konzistentní a snadno použitelné API, což zjednodušuje práci s komplexními knihovnami nebo frameworky.
+
+3. Behavioral – Komunikace mezi objekty
+Behavioral vzory řeší způsob, jakým objekty spolu komunikují a jak jsou řízeny jejich interakce. Patří sem:
+
+    Observer: Vzor Observer se používá pro situace, kdy změna stavu jednoho objektu vyvolá reakci u jiných objektů. Tato technika se hojně využívá při implementaci událostí nebo v rámci rozhraní IObservable<T> v C#. Typickým příkladem je systém, kde při změně dat automaticky dojde k aktualizaci všech závislých komponent.
+
+    Strategy: Strategy umožňuje dynamické přepínání algoritmů. Tento vzor je velmi užitečný v případech, kdy se chceme vyhnout rozsáhlým podmínkovým konstrukcím typu if-else, a místo toho umožnit snadné nahrazení nebo rozšíření logiky podle aktuálních potřeb – například při výběru vhodného algoritmu pro šifrování dat.
+
+    Command: Tento vzor zabalí požadavky do objektů, čímž umožňuje jejich snadnou manipulaci, ukládání, zpracování či dokonce zrušení akce. Je velmi vhodný pro implementaci funkcí jako undo/redo, kde je nutné mít možnost zpětně vrátit provedené operace.
+
+
+
+Kód v akci
+Teoretické koncepty, které jsme dosud probírali, se samozřejmě uplatňují v praxi. Při pohledu na reálný kód můžeme vidět, jak se jednotlivé vzory propojují a vzájemně doplňují. Například implementace Singletonu vyžaduje správné nastavení statické instance s ohledem na vlákno-safety, což je nezbytné zejména v prostředí, kde může docházet k paralelnímu přístupu. Podobně je princip Dependency Injection využit pro snadné vložení závislostí, což usnadňuje testování a rozšiřování aplikace. V mnoha moderních projektech najdeme také využití vzoru Observer, který efektivně zajišťuje komunikaci mezi komponentami při změnách jejich stavu.
+
+Dependency Injection – Moderní hrdina
+Kromě samotných návrhových vzorů bychom měli věnovat pozornost i principům moderního návrhu, mezi něž patří závislostní injekce (Dependency Injection, DI). Tento přístup, který je již vestavěný například v ASP.NET Core, umožňuje předávat závislosti objektům místo toho, aby si je objekty vytvářely samy. Hlavní výhodou DI je zvýšení testovatelnosti a flexibility kódu. Díky tomu je možné jednoduše zaměnit konkrétní implementaci závislosti při testování, což vede k robustnějším a lépe udržovatelným aplikacím. Statistiky ukazují, že až 80 % moderních projektů v C# využívá právě tento princip.
+
+Proč a kdy použít návrhové vzory
+Je důležité se zaměřit na situace, kdy je použití návrhových vzorů opravdu vhodné. V první řadě jde o opakující se problémy, které se objevují v různých projektech. Když se setkáme s podobnými výzvami, můžeme využít ověřené řešení, která nejen zjednoduší návrh, ale také výrazně zvýší kvalitu a udržitelnost kódu. Mezi hlavní výhody patří: • Čistší architektura: Použití návrhových vzorů vede k tomu, že výsledný kód je modulární, přehledný a snadno pochopitelný i pro nové členy týmu.
+• Rychlejší onboarding: Díky dobře definovaným a známým vzorům se noví členové týmu rychleji orientují v architektuře projektu, což zkracuje dobu potřebnou k zapojení se do vývoje.
+• Snadné rozšíření: Díky jasnému oddělení odpovědností a konzistentní struktuře je možné systém jednoduše rozšiřovat o nové funkce, aniž by bylo nutné přepisovat již existující kód.
+
+Použití návrhových vzorů tedy není jen otázkou elegance nebo teoretické správnosti, ale především otázkou praktické efektivity a dlouhodobé udržitelnosti softwarových řešení.
+
+	
+
+Děkujem za pozornost.
